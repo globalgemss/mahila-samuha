@@ -1,0 +1,23 @@
+{
+  "name": "mahila-samuha",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build --outDir dist/client && node scripts/build-worker.mjs",
+    "test": "node --test tests/*.test.js",
+    "db:generate": "drizzle-kit generate"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.11",
+    "drizzle-orm": "^0.45.4",
+    "esbuild": "^0.28.2",
+    "vite": "^6.0.0"
+  }
+}

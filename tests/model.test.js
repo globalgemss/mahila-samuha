@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{seed,balances,canPublish,validate}from'../src/model.js';
+test('only approved entries change balance',()=>{assert.deepEqual(balances(seed.transactions),{income:25000,expense:18500,total:6500});assert.equal(balances(seed.transactions.map(t=>({...t,status:'स्वीकृत'}))).total,5000)});
+test('publication requires consent and review',()=>{assert.equal(canPublish({consent:true,reviewed:false}),false);assert.equal(canPublish({consent:false,reviewed:true}),false);assert.equal(canPublish({consent:true,reviewed:true}),true)});
+test('validates money phone and session boundaries',()=>{assert.ok(validate('transactions',{amount:0}));assert.ok(validate('members',{phone:'123'}));assert.ok(validate('programs',{days:2,sessions:3}));assert.equal(validate('transactions',{amount:25}),null)});
