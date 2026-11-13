@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mahila-samuha",
+  "main": "dist/cloudflare/index.js",
+  "compatibility_date": "2026-11-10",
+  "workers_dev": true,
+  "vars": {
+    "OWNER_EMAIL": "globaleramultiservice@gmail.com",
+    "ACCESS_AUD": "162c469fb52dd8cc15e4ba11d1b59fb5b6470174442e9785dd51845ae12f195d"
+  },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "mahila-samuha-db",
+    "database_id": "48b16cc6-43c9-4adf-be85-05e0c7b98c13",
+    "migrations_dir": "drizzle"
+  }],
+  "observability": {"enabled": true}
+}

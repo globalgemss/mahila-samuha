@@ -24,7 +24,11 @@ npm run build
 
 The local Vite adapter uses simulated identity and local SQLite for development. It is excluded from the production Worker. Do not expose the development server as an authenticated production service.
 
-## Production deployment
+## Standalone Cloudflare deployment
+
+Cloudflare Worker + D1 + owner-only email-code Access login are configured. Use `npm run build:cloudflare` and the checked-in `wrangler.jsonc`; the existing Workers Builds pipeline runs tests before deployment. See [Cloudflare setup and verification](docs/cloudflare-deployment.md). The new Cloudflare database starts empty; Sites data has not been migrated. First live authenticated verification requires the owner's email login.
+
+## Sites deployment (separate target)
 The current app is hosted through Sites. Production requires the trusted Sites dispatch identity headers, configured OWNER_EMAIL and a provisioned D1 DB binding. `.openai/hosting.json` identifies the existing Sites project. A GitHub upload alone does not deploy the app or migrate its database.
 
 To host independently on Cloudflare or another service, implement and verify a suitable authentication adapter, deployment configuration and database migrations first. Do not accept untrusted client-supplied identity headers.

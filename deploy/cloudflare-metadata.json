@@ -1,0 +1,26 @@
+{
+  "main_module": "worker.js",
+  "compatibility_date": "2026-11-10",
+  "keep_assets": false,
+  "bindings": [
+    {
+      "type": "d1",
+      "name": "DB",
+      "database_id": "48b16cc6-43c9-4adf-be85-05e0c7b98c13"
+    },
+    {
+      "type": "plain_text",
+      "name": "OWNER_EMAIL",
+      "text": "globaleramultiservice@gmail.com"
+    },
+    {
+      "type": "plain_text",
+      "name": "ACCESS_AUD",
+      "text": "162c469fb52dd8cc15e4ba11d1b59fb5b6470174442e9785dd51845ae12f195d"
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}
