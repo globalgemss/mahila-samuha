@@ -1,3 +1,4 @@
+import {BackToMenu} from './PublicNavigation';
 import React, {useState} from 'react';
 import {Flower2, Users, NotebookPen, Wallet, Quote} from 'lucide-react';
 import {Button, Panel} from './components';
@@ -23,7 +24,7 @@ export function LeadershipSection({settings,demo=false}){
   </article>})}</div>
   {president&&(settings.presidentMessage??sampleMessage)&&<div className="president-message"><div className="message-label"><Quote size={34} aria-hidden="true"/><span>अध्यक्षको सन्देश</span><strong>साथबाट सम्भावनातर्फ</strong></div><div><blockquote>{settings.presidentMessage??sampleMessage}</blockquote><p className="message-signature">{president.name}<span>अध्यक्ष • {settings.name}</span></p></div></div>}
   <div className="leadership-community"><Users size={22}/><p>हरेक सदस्यको सहभागिता, हाम्रो समूहको शक्ति।</p></div>
- </section>;
+ <BackToMenu/></section>;
 }
 export function LeadershipEditor({settings,saveSettings}){
  const [people,setPeople]=useState(()=>profiles(settings)),[message,setMessage]=useState(settings.presidentMessage??sampleMessage),[error,setError]=useState(''),[uploading,setUploading]=useState(false);
