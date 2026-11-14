@@ -1,9 +1,10 @@
-export const websiteTypes={about:'परिचय / सार्वजनिक विवरण',achievement:'प्रमाणित उपलब्धि',program:'कार्यक्रम / आवेदन',story:'सफलताका कथा',product:'उत्पादन तथा सेवा',gallery:'फोटो / भिडियो',notice:'सार्वजनिक सूचना',report:'सार्वजनिक प्रतिवेदन',partner:'सहकार्य गर्ने संस्था',contact:'सम्पर्क / कार्यालय समय',committee:'थप कार्यसमिति सदस्य'};
+export const websiteTypes={post:'समूहको पोस्ट',about:'परिचय / सार्वजनिक विवरण',achievement:'प्रमाणित उपलब्धि',program:'कार्यक्रम / आवेदन',story:'सफलताका कथा',product:'उत्पादन तथा सेवा',gallery:'फोटो / भिडियो',notice:'सार्वजनिक सूचना',report:'सार्वजनिक प्रतिवेदन',partner:'सहकार्य गर्ने संस्था',contact:'सम्पर्क / कार्यालय समय',committee:'थप कार्यसमिति सदस्य'};
 export const siteImages=['hero','training','exhibition','cleanup','story','products'];
 export function safeWebUrl(value){try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password?u.href:''}catch{return ''}}
 export function cleanWebsiteEntry(v){
  if(!v||!Object.hasOwn(websiteTypes,v.kind))throw Error('सामग्रीको प्रकार छान्नुहोस्।');
- const x={};for(const [k,max] of Object.entries({id:80,kind:30,title:120,body:3000,image:30,date:10,deadline:10,location:180,eligibility:350,price:80,url:1000,category:80,value:40,evidence:500,photo:500000}))x[k]=typeof v[k]==='string'?v[k].trim().slice(0,max):'';
+ const x={};for(const [k,max] of Object.entries({id:80,kind:30,title:120,body:3000,image:30,date:10,deadline:10,location:180,eligibility:350,price:80,url:1000,category:80,value:40,evidence:500,photo:500000,leaderId:100,term:80}))x[k]=typeof v[k]==='string'?v[k].trim().slice(0,max):'';
+ x.photos=Array.isArray(v.photos)?v.photos.slice(0,4):[];if(x.photos.some(p=>typeof p!=='string'||p.length>500000||!/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(p)))throw Error('एल्बम फोटो मिलेन।');
  if(!x.title)throw Error('शीर्षक आवश्यक छ।');if(x.url&&!safeWebUrl(x.url))throw Error('लिङ्क https:// बाट सुरु हुनुपर्छ।');
  if(x.photo&&!/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(x.photo))throw Error('फोटोको ढाँचा मिलेन।');
  if(x.image&&!siteImages.includes(x.image))throw Error('तस्बिर छान्नुहोस्।');

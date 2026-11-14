@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS public_reactions (
+ post_id TEXT NOT NULL, visitor TEXT NOT NULL, liked INTEGER NOT NULL DEFAULT 0,
+ shares INTEGER NOT NULL DEFAULT 0, shared_at INTEGER NOT NULL DEFAULT 0,
+ PRIMARY KEY(post_id,visitor)
+);
+CREATE TABLE IF NOT EXISTS public_social_rate (bucket TEXT PRIMARY KEY, hits INTEGER NOT NULL, expires INTEGER NOT NULL);
