@@ -8,17 +8,18 @@ const roles = [
 ];
 const sampleMessage='हरेक सदस्यको सीप, विचार र सहभागिता हाम्रो समूहको शक्ति हो। एकअर्कालाई साथ दिँदै सिकाइ, उद्यम र आत्मनिर्भरताको यात्रामा सँगै अघि बढौँ।';
 function profiles(settings){return roles.map(({Icon,...r})=>({...r,photo:'',term:'',visible:true,...settings.leadership?.[r.id]}));}
-function Portrait({person}){
+function Portrait({person,demo}){
  const safePhoto=/^data:image\/(png|jpeg|webp);base64,/.test(person.photo||'');
+ if(demo)return <div className="leader-portrait"><div className={`demo-leader-photo demo-leader-${person.id}`} role="img" aria-label={`${person.role}को AI निर्मित नमुना फोटो`}/></div>;
  return <div className="leader-portrait">{safePhoto?<img src={person.photo} alt={person.name}/>:<div className="leader-monogram" aria-label="फोटो राख्न बाँकी"><Flower2 aria-hidden="true"/><span>{person.name?.slice(0,1)||'✿'}</span><small>फोटो राख्न बाँकी</small></div>}</div>;
 }
-export function LeadershipSection({settings}){
+export function LeadershipSection({settings,demo=false}){
  const people=profiles(settings),president=people.find(p=>p.id==='president'&&p.visible);
  if(!people.some(p=>p.visible))return null;
  return <section className="leadership-section" id="leadership" aria-labelledby="leadership-title">
   <div className="leadership-heading"><span className="eyebrow">साझा सोच • समर्पित नेतृत्व</span><h2 id="leadership-title">हाम्रो नेतृत्व</h2><p>समूहलाई अघि बढाउने साथ, विश्वास र जिम्मेवारी।</p><div className="leadership-rule"><span/><Flower2 size={22}/><span/></div></div>
   <div className="leadership-grid">{people.filter(p=>p.visible).map(p=>{const Icon=roles.find(r=>r.id===p.id).Icon;return <article key={p.id} className={'leader-card leader-'+p.id}>
-   <div className="leader-top"><Icon size={20}/><span>{p.role}</span></div><Portrait person={p}/><div className="leader-info"><span className="leader-role">{p.role}</span><h3>{p.name||'नाम राख्न बाँकी'}</h3>{p.term&&<span className="leader-term">कार्यकाल: {p.term}</span>}<div className="leader-divider"/><p>{p.responsibility}</p></div>
+   <div className="leader-top"><Icon size={20}/><span>{p.role}</span></div><Portrait person={p} demo={demo}/><div className="leader-info">{demo&&<small className="demo-portrait-label">AI नमुना फोटो</small>}<span className="leader-role">{p.role}</span><h3>{p.name||'नाम राख्न बाँकी'}</h3>{p.term&&<span className="leader-term">कार्यकाल: {p.term}</span>}<div className="leader-divider"/><p>{p.responsibility}</p></div>
   </article>})}</div>
   {president&&(settings.presidentMessage??sampleMessage)&&<div className="president-message"><div className="message-label"><Quote size={34} aria-hidden="true"/><span>अध्यक्षको सन्देश</span><strong>साथबाट सम्भावनातर्फ</strong></div><div><blockquote>{settings.presidentMessage??sampleMessage}</blockquote><p className="message-signature">{president.name}<span>अध्यक्ष • {settings.name}</span></p></div></div>}
   <div className="leadership-community"><Users size={22}/><p>हरेक सदस्यको सहभागिता, हाम्रो समूहको शक्ति।</p></div>
